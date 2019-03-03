@@ -14,8 +14,8 @@ public class HelloWorldPrinter implements Printable {
 
   private static final Hashtable<TextAttribute, Object> map = new Hashtable<>();
   static {
-    map.put(TextAttribute.FAMILY, "Serif");
-    map.put(TextAttribute.SIZE, new Float(18.0));
+    map.put(TextAttribute.FAMILY, "SimHei");
+    map.put(TextAttribute.SIZE, new Float(10.0));
   }
 
   private String text;
@@ -56,7 +56,6 @@ public class HelloWorldPrinter implements Printable {
 
     // Get lines from until the entire paragraph
     // has been displayed.
-    boolean success = false;
     int lastPos = 0;
     while (lineMeasurer.getPosition() < paragraphEnd) {
       // handling newline
@@ -83,7 +82,6 @@ public class HelloWorldPrinter implements Printable {
       // check end of page
       if (drawPosY >= pf.getImageableY() + pf.getImageableHeight()) {
         pageOffsetMap.put(page + 1, pageOffset + lastPos);
-        success = true;
         break;
       }
 
@@ -97,11 +95,6 @@ public class HelloWorldPrinter implements Printable {
 
     // tell the caller that this page is part
     // of the printed document
-    if (success) {
-      return PAGE_EXISTS;
-    }
-    else {
-      return NO_SUCH_PAGE;
-    }
+    return PAGE_EXISTS;
   }
 }
