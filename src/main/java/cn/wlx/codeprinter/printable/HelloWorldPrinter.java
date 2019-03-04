@@ -15,11 +15,10 @@ public class HelloWorldPrinter implements Printable {
   private static final Hashtable<TextAttribute, Object> map = new Hashtable<>();
   static {
     map.put(TextAttribute.FAMILY, "SimHei");
-    map.put(TextAttribute.SIZE, new Float(10.0));
+    map.put(TextAttribute.SIZE, 10.0f);
   }
 
   private String text;
-  private int offset = 0;
   private HashMap<Integer, Integer> pageOffsetMap = new HashMap<>();
 
   public HelloWorldPrinter(String text) {
@@ -28,15 +27,12 @@ public class HelloWorldPrinter implements Printable {
   }
 
   public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
-    //Font font = new Font("Arial", Font.PLAIN, 10);
     Graphics2D g2d = (Graphics2D) g;
-    //g2d.setFont(font);
-
-    if (offset >= text.length()) {
-      return NO_SUCH_PAGE;
-    }
 
     int pageOffset = pageOffsetMap.get(page);
+    if (pageOffset >= text.length()) {
+      return NO_SUCH_PAGE;
+    }
     String subStr = text.substring(pageOffset);
     AttributedString stringToPrint = new AttributedString(subStr, map);
     AttributedCharacterIterator paragraph = stringToPrint.getIterator();
