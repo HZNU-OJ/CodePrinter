@@ -10,20 +10,23 @@ import java.text.AttributedString;
 import java.util.HashMap;
 import java.util.Hashtable;
 
-public class HelloWorldPrinter implements Printable {
+public class PlainTextPrinter implements Printable {
 
-  private static final Hashtable<TextAttribute, Object> map = new Hashtable<>();
-  static {
-    map.put(TextAttribute.FAMILY, "SimHei");
-    map.put(TextAttribute.SIZE, 10.0f);
-  }
+  private Hashtable<TextAttribute, Object> map = new Hashtable<>();
 
   private String text;
   private HashMap<Integer, Integer> pageOffsetMap = new HashMap<>();
 
-  public HelloWorldPrinter(String text) {
+  public PlainTextPrinter(String text) {
     this.text = text;
     pageOffsetMap.put(0, 0);
+    map.put(TextAttribute.FAMILY, "SimHei");
+    map.put(TextAttribute.SIZE, 10.0f);
+  }
+
+  public void setFont(String fontFamily, float size) {
+    map.put(TextAttribute.FAMILY, fontFamily);
+    map.put(TextAttribute.SIZE, size);
   }
 
   public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
@@ -42,7 +45,7 @@ public class HelloWorldPrinter implements Printable {
         stringToPrint.getIterator(), g2d.getFontRenderContext()
     );
 
-    System.out.println(String.format("drawing page %d. pageOffset=%d, end=%d.", page, pageOffset, text.length()));
+    // System.out.println(String.format("drawing page %d. pageOffset=%d, end=%d.", page, pageOffset, text.length()));
     // Set break width to width of Component.
     float breakWidth = (float) pf.getImageableWidth();
     float drawPosY = (float) pf.getImageableY();
