@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class HznuojListener implements Listener {
   // JDBC 驱动名及数据库 URL
-  static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-  static final String DB_URL      = "jdbc:mysql://localhost:3306/jol";
+  private String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+  private String DB_URL      = "jdbc:mysql://localhost:3306/jol";
 
   // 数据库的用户名与密码，需要根据自己的设置
   static final String USER = "root";
@@ -60,5 +60,9 @@ public class HznuojListener implements Listener {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public void setDbUrl(String dbUrl) {
+    this.DB_URL = dbUrl;
   }
 }

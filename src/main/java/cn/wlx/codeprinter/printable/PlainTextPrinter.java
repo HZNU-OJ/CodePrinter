@@ -32,7 +32,7 @@ public class PlainTextPrinter implements Printable {
   public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
     Graphics2D g2d = (Graphics2D) g;
 
-    int pageOffset = pageOffsetMap.get(page);
+    int pageOffset = pageOffsetMap.getOrDefault(page, Integer.MAX_VALUE);
     if (pageOffset >= text.length()) {
       return NO_SUCH_PAGE;
     }
